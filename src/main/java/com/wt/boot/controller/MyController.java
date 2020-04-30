@@ -38,8 +38,6 @@ public class MyController {
 
         List<DltbArea> dltbAreas = arcgisMapper.getDltbArea(sql);
 
-        System.out.println(dltbAreas.size());
-
         return dltbAreas;
 
     }
