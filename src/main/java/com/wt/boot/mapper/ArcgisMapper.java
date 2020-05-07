@@ -14,4 +14,7 @@ public interface ArcgisMapper {
     @Select("select dlbm, substring(dlbm from 1 for 2) as firstcategory,sum(tbmj)/666.67 as area, dlmc from dltb group by firstcategory, dlbm, dlmc having dlbm in (${sqlIn}) ")
     public List<DltbArea> getDltbArea(@Param("sqlIn") String sqlIn);//根类统计二级分类面积
 
+    @Select("select dlbm, substring(dlbm from 1 for 2) as firstcategory,sum(tbmj)/666.67 as area, dlmc from dltb where qsdwdm like CONCAT(#{provenceCode},'%') group by firstcategory, dlbm, dlmc having dlbm in (${sqlIn})")
+    public List<DltbArea> getDltbAreaByprovenceCode(@Param("sqlIn") String sqlIn, @Param("provenceCode") String provenceCode);//根类统计二级分类面积,根据行政区划代码
+
 }

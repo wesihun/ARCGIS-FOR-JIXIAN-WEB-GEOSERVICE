@@ -21,7 +21,7 @@ public class MyController {
     ArcgisMapper arcgisMapper;
 
     @RequestMapping(value = "getSecondCategoryCode", produces = "application/json;charset=utf-8")
-    public List<DltbArea> getSecondCategoryCode(String jsonMenue) {
+    public List<DltbArea> getSecondCategoryCode(String jsonMenue, String proviceCode) {
         ArrayList<Menue> menues = JSON.parseObject(jsonMenue, new TypeReference<ArrayList<Menue>>(){});
         String sql = "";
 
@@ -33,10 +33,15 @@ public class MyController {
             }else{
                 sql += "'" + menue.getSecondcategoryCode() + "'" + ", ";
             }
-
         }
 
-        List<DltbArea> dltbAreas = arcgisMapper.getDltbArea(sql);
+        List<DltbArea> dltbAreas;
+
+        if(proviceCode.equals("000000")){//集贤县
+            dltbAreas = arcgisMapper.getDltbArea(sql);
+        }else {
+            dltbAreas = arcgisMapper.getDltbAreaByprovenceCode(sql, proviceCode);
+        }
 
         return dltbAreas;
 
