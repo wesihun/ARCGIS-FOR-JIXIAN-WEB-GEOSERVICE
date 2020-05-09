@@ -1,5 +1,6 @@
 package com.wt.boot.mapper;
 
+import com.wt.boot.pojo.DLTB;
 import com.wt.boot.pojo.DltbArea;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -16,5 +17,13 @@ public interface ArcgisMapper {
 
     @Select("select dlbm, substring(dlbm from 1 for 2) as firstcategory,sum(tbmj)/666.67 as area, dlmc from dltb where qsdwdm like CONCAT(#{provenceCode},'%') group by firstcategory, dlbm, dlmc having dlbm in (${sqlIn})")
     public List<DltbArea> getDltbAreaByprovenceCode(@Param("sqlIn") String sqlIn, @Param("provenceCode") String provenceCode);//根类统计二级分类面积,根据行政区划代码
+
+    @Select("select objectid,bsm,ysdm,dlbm,qsdwdm,qsdwmc from dltb where dlbm in(${sqlIn}) ")
+    public List<DLTB> getDLTB(@Param("sqlIn") String sqlIn);//根类二级分类获取所有图斑
+
+    @Select("select objectid,bsm,ysdm,dlbm,qsdwdm,qsdwmc from dltb where dlbm in(${sqlIn}) and qsdwdm like CONCAT(#{provenceCode},'%')")
+    public List<DLTB> getDLTBWidthCounctry(@Param("sqlIn") String sqlIn, @Param("provenceCode") String provenceCode);//根类二级分类获取所有图斑，行政区划
+
+
 
 }
