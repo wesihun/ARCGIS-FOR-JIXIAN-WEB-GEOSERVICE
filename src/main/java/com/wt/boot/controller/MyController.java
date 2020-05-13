@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -82,10 +83,14 @@ public class MyController {
     }
 
     @RequestMapping(value = "exportReportPDF", produces = "application/json;charset=utf-8")
-    public String exportReportPDF(){//导出报表
-        this.createPDF("c:/test.pdf","","");
+    public String exportReportPDF(String jsonMenue, String proviceCode){//导出报表
 
-        return "http://localhost:6080/arcgis/rest/directories/arcgisoutput/Utilities/PrintingTools_GPServer/_ags_7c2ddbb54a7241e19cb3065237d3f7b3.jpg";
+        String filename = "c:/test" + new Date().getTime()+".pdf";
+
+        this.createPDF(filename ,"集贤县","耕地");
+
+        return "{" + "'" +"result" + "'" + ":" + filename + "}";
+
     }
 
     public void createPDF(String filename, String coutry, String DLCategory){//导出PDF报表
@@ -99,7 +104,7 @@ public class MyController {
             BaseFont bfChinese = BaseFont.createFont("STSong-Light", "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);//设置中文样式（不设置，中文将不会显示）
             Font fontChinese_title = new Font(bfChinese, 20, Font.BOLD, BaseColor.BLACK);
 
-            Paragraph paragraph_title = new Paragraph("集贤县耕地各地类面积报表（亩）", fontChinese_title);
+            Paragraph paragraph_title = new Paragraph(coutry + DLCategory + "各地类面积报表（亩）", fontChinese_title);
             paragraph_title.setAlignment(Paragraph.ALIGN_CENTER);
 
             document.add(paragraph_title);
@@ -128,13 +133,24 @@ public class MyController {
 
         PdfPCell cell_1 = new PdfPCell(new Paragraph("地类名称",cellFontsize));
         PdfPCell cell_2 = new PdfPCell(new Paragraph("面积",cellFontsize));
-        PdfPCell cell_3 = new PdfPCell(new Paragraph("three",cellFontsize));
-        PdfPCell cell_4 = new PdfPCell(new Paragraph("four",cellFontsize));
+
+        PdfPCell cell_3 = new PdfPCell(new Paragraph("水田",cellFontsize));
+        PdfPCell cell_4 = new PdfPCell(new Paragraph("403361.94",cellFontsize));
+
+        PdfPCell cell_5 = new PdfPCell(new Paragraph("水浇地",cellFontsize));
+        PdfPCell cell_6 = new PdfPCell(new Paragraph("2145.34",cellFontsize));
+
+        PdfPCell cell_7 = new PdfPCell(new Paragraph("旱田",cellFontsize));
+        PdfPCell cell_8 = new PdfPCell(new Paragraph("1605692.6",cellFontsize));
 
         table.addCell(cell_1);
         table.addCell(cell_2);
         table.addCell(cell_3);
         table.addCell(cell_4);
+        table.addCell(cell_5);
+        table.addCell(cell_6);
+        table.addCell(cell_7);
+        table.addCell(cell_8);
 
 
         return table;
