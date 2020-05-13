@@ -2,6 +2,11 @@ package com.wt.boot.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.wt.boot.mapper.ArcgisMapper;
 import com.wt.boot.pojo.DLTB;
 import com.wt.boot.pojo.DltbArea;
@@ -11,6 +16,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,6 +79,65 @@ public class MyController {
 
         return list;
 
+    }
+
+    @RequestMapping(value = "exportReportPDF", produces = "application/json;charset=utf-8")
+    public String exportReportPDF(){//导出报表
+        this.createPDF("c:/test.pdf","","");
+
+        return "http://localhost:6080/arcgis/rest/directories/arcgisoutput/Utilities/PrintingTools_GPServer/_ags_7c2ddbb54a7241e19cb3065237d3f7b3.jpg";
+    }
+
+    public void createPDF(String filename, String coutry, String DLCategory){//导出PDF报表
+        Document document = new Document(PageSize.A4);
+
+        try {
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(filename));
+            document.addTitle("example of PDF");
+            document.open();
+
+            BaseFont bfChinese = BaseFont.createFont("STSong-Light", "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);//设置中文样式（不设置，中文将不会显示）
+            Font fontChinese_title = new Font(bfChinese, 20, Font.BOLD, BaseColor.BLACK);
+
+            Paragraph paragraph_title = new Paragraph("集贤县耕地各地类面积报表（亩）", fontChinese_title);
+            paragraph_title.setAlignment(Paragraph.ALIGN_CENTER);
+
+            document.add(paragraph_title);
+
+            for(int i=0; i<2; i++){//换行
+                document.add(new Paragraph(" "));
+            }
+
+            PdfPTable table = this.createTable(writer);
+            document.add(table);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            document.close();
+        }
+    }
+
+    public PdfPTable createTable(PdfWriter writer) throws Exception{
+        BaseFont bfChinese = BaseFont.createFont("STSong-Light", "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);//设置中文样式（不设置，中文将不会显示）
+        Font fontChinese_title = new Font(bfChinese, 20, Font.BOLD, BaseColor.BLACK);
+        Font cellFontsize = new Font(bfChinese, 12, Font.NORMAL, BaseColor.BLACK);
+
+        PdfPTable table = new PdfPTable(2);//生成一个两列的表格
+
+        //Image image1 = Image.getInstance("http://localhost:6080/arcgis/rest/directories/arcgisoutput/Utilities/PrintingTools_GPServer/_ags_7c2ddbb54a7241e19cb3065237d3f7b3.jpg");
+
+        PdfPCell cell_1 = new PdfPCell(new Paragraph("地类名称",cellFontsize));
+        PdfPCell cell_2 = new PdfPCell(new Paragraph("面积",cellFontsize));
+        PdfPCell cell_3 = new PdfPCell(new Paragraph("three",cellFontsize));
+        PdfPCell cell_4 = new PdfPCell(new Paragraph("four",cellFontsize));
+
+        table.addCell(cell_1);
+        table.addCell(cell_2);
+        table.addCell(cell_3);
+        table.addCell(cell_4);
+
+
+        return table;
     }
 
 
