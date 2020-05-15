@@ -1,12 +1,14 @@
 package com.wt.boot.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.wt.boot.Config;
 import com.wt.boot.mapper.ArcgisMapper;
 import com.wt.boot.pojo.DLTB;
 import com.wt.boot.pojo.DltbArea;
@@ -27,6 +29,9 @@ public class MyController {
 
     @Autowired
     ArcgisMapper arcgisMapper;
+
+    @Autowired
+    Config config;
 
     @RequestMapping(value = "getSecondCategoryCode", produces = "application/json;charset=utf-8")
     public List<DltbArea> getSecondCategoryCode(String jsonMenue, String proviceCode) {//各地类面积
@@ -83,28 +88,41 @@ public class MyController {
     }
 
     @RequestMapping(value = "exportReportPDF", produces = "application/json;charset=utf-8")
-    public String exportReportPDF(String jsonMenue, String proviceCode){//导出报表
+    public String exportReportPDF(String jsonMenue, String proviceCode, String rightMenueName, String menuename){//导出报表
+        String firstFilename = config.getFile_dir();
+        String lastFilename = new Date().getTime()+".pdf";
+        String province = "集贤县";
+        String coutry=null;
+        String DLCategory=menuename;
 
-        String filename = "c:/test" + new Date().getTime()+".pdf";
+        if(proviceCode.equals("000000")){//集贤县
+        }else {
+            coutry = rightMenueName;
+        }
 
-        this.createPDF(filename ,"集贤县","耕地");
+        this.createPDF(firstFilename+lastFilename ,province,coutry,DLCategory);
 
-        return "{" + "'" +"result" + "'" + ":" + filename + "}";
+        String resutl = "http://192.168.1.109:" + config.getPort() + "/" + lastFilename;
+
+        JSONObject jt = new JSONObject();
+        jt.put("result", resutl);
+
+        return jt.toJSONString();
 
     }
 
-    public void createPDF(String filename, String coutry, String DLCategory){//导出PDF报表
+    public void createPDF(String filename, String province, String coutry, String DLCategory){//导出PDF报表
         Document document = new Document(PageSize.A4);
 
         try {
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(filename));
-            document.addTitle("example of PDF");
+            document.addTitle("PDF file");
             document.open();
 
             BaseFont bfChinese = BaseFont.createFont("STSong-Light", "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);//设置中文样式（不设置，中文将不会显示）
             Font fontChinese_title = new Font(bfChinese, 20, Font.BOLD, BaseColor.BLACK);
 
-            Paragraph paragraph_title = new Paragraph(coutry + DLCategory + "各地类面积报表（亩）", fontChinese_title);
+            Paragraph paragraph_title = new Paragraph(province + coutry + DLCategory + "各地类面积报表（亩）", fontChinese_title);
             paragraph_title.setAlignment(Paragraph.ALIGN_CENTER);
 
             document.add(paragraph_title);
