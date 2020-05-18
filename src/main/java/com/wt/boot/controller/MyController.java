@@ -119,7 +119,7 @@ public class MyController {
 
         this.createPDF(firstFilename+lastFilename ,province,coutry,DLCategory, dltbAreas);
 
-        String resutl = "http://192.168.1.109:" + config.getPort() + "/" + lastFilename;
+        String resutl = config.getReport_url()+":" + config.getPort() + "/" + lastFilename;
 
         JSONObject jt = new JSONObject();
         jt.put("result", resutl);
