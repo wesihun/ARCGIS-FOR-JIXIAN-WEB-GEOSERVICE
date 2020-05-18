@@ -92,15 +92,32 @@ public class MyController {
         String firstFilename = config.getFile_dir();
         String lastFilename = new Date().getTime()+".pdf";
         String province = "集贤县";
-        String coutry=null;
+        String coutry="";
         String DLCategory=menuename;
 
+        ArrayList<Menue> menues = JSON.parseObject(jsonMenue, new TypeReference<ArrayList<Menue>>(){});
+        List<DltbArea> dltbAreas;
+        String sql = "";
+
+        for(int i=0; i<menues.size(); i++){//解析二级分类
+            Menue menue = menues.get(i);
+
+            if(i == menues.size()-1){
+                sql += "'" + menue.getSecondcategoryCode() + "'" ;
+            }else{
+                sql += "'" + menue.getSecondcategoryCode() + "'" + ", ";
+            }
+        }
+
         if(proviceCode.equals("000000")){//集贤县
+            dltbAreas = arcgisMapper.getDltbArea(sql); //分组统计面积
         }else {
+            dltbAreas = arcgisMapper.getDltbAreaByprovenceCode(sql, proviceCode);
             coutry = rightMenueName;
         }
 
-        this.createPDF(firstFilename+lastFilename ,province,coutry,DLCategory);
+
+        this.createPDF(firstFilename+lastFilename ,province,coutry,DLCategory, dltbAreas);
 
         String resutl = "http://192.168.1.109:" + config.getPort() + "/" + lastFilename;
 
@@ -111,7 +128,7 @@ public class MyController {
 
     }
 
-    public void createPDF(String filename, String province, String coutry, String DLCategory){//导出PDF报表
+    public void createPDF(String filename, String province, String coutry, String DLCategory, List<DltbArea> dltbAreas){//导出PDF报表
         Document document = new Document(PageSize.A4);
 
         try {
@@ -131,7 +148,7 @@ public class MyController {
                 document.add(new Paragraph(" "));
             }
 
-            PdfPTable table = this.createTable(writer);
+            PdfPTable table = this.createTable(writer, dltbAreas);
             document.add(table);
         } catch (Exception e) {
             e.printStackTrace();
@@ -140,7 +157,7 @@ public class MyController {
         }
     }
 
-    public PdfPTable createTable(PdfWriter writer) throws Exception{
+    public PdfPTable createTable(PdfWriter writer, List<DltbArea> dltbAreas) throws Exception{
         BaseFont bfChinese = BaseFont.createFont("STSong-Light", "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);//设置中文样式（不设置，中文将不会显示）
         Font fontChinese_title = new Font(bfChinese, 20, Font.BOLD, BaseColor.BLACK);
         Font cellFontsize = new Font(bfChinese, 12, Font.NORMAL, BaseColor.BLACK);
@@ -152,32 +169,17 @@ public class MyController {
         PdfPCell cell_1 = new PdfPCell(new Paragraph("地类名称",cellFontsize));
         PdfPCell cell_2 = new PdfPCell(new Paragraph("面积",cellFontsize));
 
-        PdfPCell cell_3 = new PdfPCell(new Paragraph("水田",cellFontsize));
-        PdfPCell cell_4 = new PdfPCell(new Paragraph("403361.94",cellFontsize));
+        for(int i=0; i<dltbAreas.size(); i++){
+            DltbArea dltbArea = dltbAreas.get(i);
 
-        PdfPCell cell_5 = new PdfPCell(new Paragraph("水浇地",cellFontsize));
-        PdfPCell cell_6 = new PdfPCell(new Paragraph("2145.34",cellFontsize));
+            PdfPCell cell_3 = new PdfPCell(new Paragraph(dltbArea.getDlmc(),cellFontsize));
+            PdfPCell cell_4 = new PdfPCell(new Paragraph(dltbArea.getArea()+"",cellFontsize));
 
-        PdfPCell cell_7 = new PdfPCell(new Paragraph("旱田",cellFontsize));
-        PdfPCell cell_8 = new PdfPCell(new Paragraph("1605692.6",cellFontsize));
-
-        table.addCell(cell_1);
-        table.addCell(cell_2);
-        table.addCell(cell_3);
-        table.addCell(cell_4);
-        table.addCell(cell_5);
-        table.addCell(cell_6);
-        table.addCell(cell_7);
-        table.addCell(cell_8);
-
+            table.addCell(cell_3);
+            table.addCell(cell_4);
+        }
 
         return table;
     }
-
-
-
-
-
-
 
 }
