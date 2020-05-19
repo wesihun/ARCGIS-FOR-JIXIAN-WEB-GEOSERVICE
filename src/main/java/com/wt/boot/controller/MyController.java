@@ -182,4 +182,23 @@ public class MyController {
         return table;
     }
 
+
+    @RequestMapping(value = "getAllDltbAreaByProvinceCode", produces = "application/json;charset=utf-8")
+    public List<DltbArea> getAllDltbAreaByProvinceCode(String proviceCode) {//某行政区所有地类面积
+
+        List<DltbArea> dltbAreas;
+
+        if(proviceCode.equals("000000")) {//集贤县
+            proviceCode = "230521";
+        }
+
+        dltbAreas = arcgisMapper.getAllDltbAreaByprovenceCode(proviceCode);
+
+        System.out.println(dltbAreas);
+
+        return dltbAreas;
+
+    }
+
+
 }
