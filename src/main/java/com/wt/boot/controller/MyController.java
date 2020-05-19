@@ -194,8 +194,6 @@ public class MyController {
 
         dltbAreas = arcgisMapper.getAllDltbAreaByprovenceCode(proviceCode);
 
-        System.out.println(dltbAreas);
-
         return dltbAreas;
 
     }
