@@ -199,8 +199,7 @@ public class MyController {
     }
 
     @RequestMapping(value = "printMap", produces = "application/json;charset=utf-8")
-    public String printMap(String title, String paper, String format, String url)//打印地图
-    {
+    public String printMap(String title, String paper, String format, String url){//打印地图
         String firstFilename = config.getFile_dir();
         String lastFilename = new Date().getTime()+".pdf";
 
@@ -214,8 +213,7 @@ public class MyController {
         return jsonObject.toJSONString();
     }
 
-    public void createPDFFileForPringMap(String fileName, String title, String imageUrl)//构建打印地图PDF文件
-    {
+    public void createPDFFileForPringMap(String fileName, String title, String imageUrl) {//构建打印地图PDF文件
         Document document = new Document(PageSize.A4);
 
         try {
