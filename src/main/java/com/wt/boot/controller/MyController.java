@@ -198,5 +198,57 @@ public class MyController {
 
     }
 
+    @RequestMapping(value = "printMap", produces = "application/json;charset=utf-8")
+    public String printMap(String title, String paper, String format, String url)//打印地图
+    {
+        String firstFilename = config.getFile_dir();
+        String lastFilename = new Date().getTime()+".pdf";
+
+        String result = config.getReport_url()+":" + config.getPort() + "/" + lastFilename;
+
+        this.createPDFFileForPringMap(firstFilename+lastFilename, title, url);//构建PDF文件
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("result", result);
+
+        return jsonObject.toJSONString();
+    }
+
+    public void createPDFFileForPringMap(String fileName, String title, String imageUrl)//构建打印地图PDF文件
+    {
+        Document document = new Document(PageSize.A4);
+
+        try {
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(fileName));
+            document.addTitle("PDF file");
+            document.open();
+
+            BaseFont bfChinese = BaseFont.createFont("STSong-Light", "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);//设置中文样式（不设置，中文将不会显示）
+            Font fontChinese_title = new Font(bfChinese, 20, Font.BOLD, BaseColor.BLACK);
+
+            Paragraph paragraph_title = new Paragraph(title, fontChinese_title);
+            paragraph_title.setAlignment(Paragraph.ALIGN_CENTER);
+
+            document.add(paragraph_title);
+
+            /*for(int i=0; i<2; i++){//换行
+                document.add(new Paragraph(" "));
+            }*/
+
+            PdfPTable table = new PdfPTable(1);//生成一个两列的表格
+            table.getDefaultCell().setBorder(0);
+
+            Image image = Image.getInstance(imageUrl);
+            table.addCell(image);
+
+            document.add(table);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            document.close();
+        }
+    }
+
 
 }
