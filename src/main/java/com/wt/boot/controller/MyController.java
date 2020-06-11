@@ -13,6 +13,7 @@ import com.wt.boot.mapper.ArcgisMapper;
 import com.wt.boot.pojo.DLTB;
 import com.wt.boot.pojo.DltbArea;
 import com.wt.boot.pojo.Menue;
+import com.wt.boot.pojo.SpecialMenue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -248,5 +249,16 @@ public class MyController {
         }
     }
 
+
+    @RequestMapping(value = "getLayerData", produces = "application/json;charset=utf-8")
+    public String getLayerData(String jsonTree)//获取图层数据
+    {
+        SpecialMenue specialMenue = JSON.parseObject(jsonTree, new TypeReference<SpecialMenue>(){});
+
+        JSONObject jt = new JSONObject();
+        jt.put("result", specialMenue.toString());
+
+        return jt.toJSONString();
+    }
 
 }
