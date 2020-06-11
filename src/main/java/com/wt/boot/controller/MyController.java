@@ -10,10 +10,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.wt.boot.Config;
 import com.wt.boot.mapper.ArcgisMapper;
-import com.wt.boot.pojo.DLTB;
-import com.wt.boot.pojo.DltbArea;
-import com.wt.boot.pojo.Menue;
-import com.wt.boot.pojo.SpecialMenue;
+import com.wt.boot.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -255,8 +252,32 @@ public class MyController {
     {
         SpecialMenue specialMenue = JSON.parseObject(jsonTree, new TypeReference<SpecialMenue>(){});
 
+        if(specialMenue.getTablename().equals("") || null == specialMenue.getTablename()) return null;
+
+        List list = null;
+
+        if(specialMenue.getTablename().equals("ccwjq")){list = arcgisMapper.getCCWJQ(specialMenue.getTablename());}
+        if(specialMenue.getTablename().equals("czcdyd")){list = arcgisMapper.getCZCDYD(specialMenue.getTablename());}
+        if(specialMenue.getTablename().equals("cjdcqjx")){list = arcgisMapper.getCJDCQJX(specialMenue.getTablename());}
+        if(specialMenue.getTablename().equals("xzq")){list = arcgisMapper.getXZQ(specialMenue.getTablename());}
+        if(specialMenue.getTablename().equals("gjgy")){list = arcgisMapper.getGJGY(specialMenue.getTablename());}
+        if(specialMenue.getTablename().equals("kfyq")){list = arcgisMapper.getKFYQ(specialMenue.getTablename());}
+        if(specialMenue.getTablename().equals("lsyd")){list = arcgisMapper.getLSYD(specialMenue.getTablename());}
+        if(specialMenue.getTablename().equals("lsyd")){list = arcgisMapper.getLSYD(specialMenue.getTablename());}
+        if(specialMenue.getTablename().equals("pdt")){list = arcgisMapper.getPDT(specialMenue.getTablename());}
+        if(specialMenue.getTablename().equals("sdgy")){list = arcgisMapper.getSDGY(specialMenue.getTablename());}
+        if(specialMenue.getTablename().equals("slgy")){list = arcgisMapper.getSLGY(specialMenue.getTablename());}
+        if(specialMenue.getTablename().equals("stbhhx")){list = arcgisMapper.getSTBHHX(specialMenue.getTablename());}
+        if(specialMenue.getTablename().equals("ttq")){list = arcgisMapper.getTTQ(specialMenue.getTablename());}
+        if(specialMenue.getTablename().equals("xzqjx")){list = arcgisMapper.getXZQJX(specialMenue.getTablename());}
+        if(specialMenue.getTablename().equals("yjjbnttb")){list = arcgisMapper.getYJJBNTTB(specialMenue.getTablename());}
+        if(specialMenue.getTablename().equals("zrbhq")){list = arcgisMapper.getZRBHQ(specialMenue.getTablename());}
+
+
+
         JSONObject jt = new JSONObject();
-        jt.put("result", specialMenue.toString());
+        jt.put("result", list);
+
 
         return jt.toJSONString();
     }
