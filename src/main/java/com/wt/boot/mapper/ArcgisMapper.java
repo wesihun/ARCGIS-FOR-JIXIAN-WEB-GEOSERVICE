@@ -52,7 +52,7 @@ public interface ArcgisMapper
     @Select("select * from ${table} ")
     public List<LSYD> getLSYD(@Param("table") String table);
 
-    @Select("select * from ${table} ")
+    @Select("select * from ${table} limit 1000 OFFSET 0")
     public List<PDT> getPDT(@Param("table") String table);
 
     @Select("select * from ${table} ")

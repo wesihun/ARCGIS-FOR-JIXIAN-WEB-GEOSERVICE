@@ -256,22 +256,22 @@ public class MyController {
 
         List list = null;
 
-        if(specialMenue.getTablename().equals("ccwjq")){list = arcgisMapper.getCCWJQ(specialMenue.getTablename());}
-        if(specialMenue.getTablename().equals("czcdyd")){list = arcgisMapper.getCZCDYD(specialMenue.getTablename());}
-        if(specialMenue.getTablename().equals("cjdcqjx")){list = arcgisMapper.getCJDCQJX(specialMenue.getTablename());}
-        if(specialMenue.getTablename().equals("xzq")){list = arcgisMapper.getXZQ(specialMenue.getTablename());}
-        if(specialMenue.getTablename().equals("gjgy")){list = arcgisMapper.getGJGY(specialMenue.getTablename());}
-        if(specialMenue.getTablename().equals("kfyq")){list = arcgisMapper.getKFYQ(specialMenue.getTablename());}
-        if(specialMenue.getTablename().equals("lsyd")){list = arcgisMapper.getLSYD(specialMenue.getTablename());}
-        if(specialMenue.getTablename().equals("lsyd")){list = arcgisMapper.getLSYD(specialMenue.getTablename());}
-        if(specialMenue.getTablename().equals("pdt")){list = arcgisMapper.getPDT(specialMenue.getTablename());}
-        if(specialMenue.getTablename().equals("sdgy")){list = arcgisMapper.getSDGY(specialMenue.getTablename());}
-        if(specialMenue.getTablename().equals("slgy")){list = arcgisMapper.getSLGY(specialMenue.getTablename());}
-        if(specialMenue.getTablename().equals("stbhhx")){list = arcgisMapper.getSTBHHX(specialMenue.getTablename());}
-        if(specialMenue.getTablename().equals("ttq")){list = arcgisMapper.getTTQ(specialMenue.getTablename());}
-        if(specialMenue.getTablename().equals("xzqjx")){list = arcgisMapper.getXZQJX(specialMenue.getTablename());}
-        if(specialMenue.getTablename().equals("yjjbnttb")){list = arcgisMapper.getYJJBNTTB(specialMenue.getTablename());}
-        if(specialMenue.getTablename().equals("zrbhq")){list = arcgisMapper.getZRBHQ(specialMenue.getTablename());}
+        if(specialMenue.getTablename().contains("ccwjq")){list = arcgisMapper.getCCWJQ(specialMenue.getTablename());}
+        if(specialMenue.getTablename().contains("czcdyd")){list = arcgisMapper.getCZCDYD(specialMenue.getTablename());}
+        if(specialMenue.getTablename().contains("cjdcqjx")){list = arcgisMapper.getCJDCQJX(specialMenue.getTablename());}
+        if(specialMenue.getTablename().contains("xzq")){list = arcgisMapper.getXZQ(specialMenue.getTablename());}
+        if(specialMenue.getTablename().contains("gjgy")){list = arcgisMapper.getGJGY(specialMenue.getTablename());}
+        if(specialMenue.getTablename().contains("kfyq")){list = arcgisMapper.getKFYQ(specialMenue.getTablename());}
+        if(specialMenue.getTablename().contains("lsyd")){list = arcgisMapper.getLSYD(specialMenue.getTablename());}
+        if(specialMenue.getTablename().contains("lsyd")){list = arcgisMapper.getLSYD(specialMenue.getTablename());}
+        if(specialMenue.getTablename().contains("pdt")){list = arcgisMapper.getPDT(specialMenue.getTablename());}
+        if(specialMenue.getTablename().contains("sdgy")){list = arcgisMapper.getSDGY(specialMenue.getTablename());}
+        if(specialMenue.getTablename().contains("slgy")){list = arcgisMapper.getSLGY(specialMenue.getTablename());}
+        if(specialMenue.getTablename().contains("stbhhx")){list = arcgisMapper.getSTBHHX(specialMenue.getTablename());}
+        if(specialMenue.getTablename().contains("ttq")){list = arcgisMapper.getTTQ(specialMenue.getTablename());}
+        if(specialMenue.getTablename().contains("xzqjx")){list = arcgisMapper.getXZQJX(specialMenue.getTablename());}
+        if(specialMenue.getTablename().contains("yjjbnttb")){list = arcgisMapper.getYJJBNTTB(specialMenue.getTablename());}
+        if(specialMenue.getTablename().contains("zrbhq")){list = arcgisMapper.getZRBHQ(specialMenue.getTablename());}
 
 
 
