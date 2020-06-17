@@ -252,7 +252,7 @@ public class MyController {
     {
         SpecialMenue specialMenue = JSON.parseObject(jsonTree, new TypeReference<SpecialMenue>(){});
 
-        if(specialMenue.getTablename().equals("") || null == specialMenue.getTablename()) return null;
+        if(null == specialMenue.getTablename() || specialMenue.getTablename().equals("")) return null;
 
         List list = null;
 
@@ -281,5 +281,43 @@ public class MyController {
 
         return jt.toJSONString();
     }
+
+
+    @RequestMapping(value = "getAnalysisData", produces = "application/json;charset=utf-8")
+    public String getAnalysisData(String jsonTree)//获取统计分析图层数据
+    {
+        AnalysisMenue analysisMenue = JSON.parseObject(jsonTree, new TypeReference<AnalysisMenue>(){});
+
+        if(null==analysisMenue.getTablename() || analysisMenue.getTablename().equals("")){return null;}
+
+
+        List list = null;
+
+        if(analysisMenue.getTablename().contains("ccwjq")){list = arcgisMapper.getCCWJQ(analysisMenue.getTablename());}
+        if(analysisMenue.getTablename().contains("czcdyd")){list = arcgisMapper.getCZCDYD(analysisMenue.getTablename());}
+        if(analysisMenue.getTablename().contains("cjdcqjx")){list = arcgisMapper.getCJDCQJX(analysisMenue.getTablename());}
+        if(analysisMenue.getTablename().contains("xzq")){list = arcgisMapper.getXZQ(analysisMenue.getTablename());}
+        if(analysisMenue.getTablename().contains("gjgy")){list = arcgisMapper.getGJGY(analysisMenue.getTablename());}
+        if(analysisMenue.getTablename().contains("kfyq")){list = arcgisMapper.getKFYQ(analysisMenue.getTablename());}
+        if(analysisMenue.getTablename().contains("lsyd")){list = arcgisMapper.getLSYD(analysisMenue.getTablename());}
+        if(analysisMenue.getTablename().contains("lsyd")){list = arcgisMapper.getLSYD(analysisMenue.getTablename());}
+        if(analysisMenue.getTablename().contains("pdt")){list = arcgisMapper.getPDT(analysisMenue.getTablename());}
+        if(analysisMenue.getTablename().contains("sdgy")){list = arcgisMapper.getSDGY(analysisMenue.getTablename());}
+        if(analysisMenue.getTablename().contains("slgy")){list = arcgisMapper.getSLGY(analysisMenue.getTablename());}
+        if(analysisMenue.getTablename().contains("stbhhx")){list = arcgisMapper.getSTBHHX(analysisMenue.getTablename());}
+        if(analysisMenue.getTablename().contains("ttq")){list = arcgisMapper.getTTQ(analysisMenue.getTablename());}
+        if(analysisMenue.getTablename().contains("xzqjx")){list = arcgisMapper.getXZQJX(analysisMenue.getTablename());}
+        if(analysisMenue.getTablename().contains("yjjbnttb")){list = arcgisMapper.getYJJBNTTB(analysisMenue.getTablename());}
+        if(analysisMenue.getTablename().contains("zrbhq")){list = arcgisMapper.getZRBHQ(analysisMenue.getTablename());}
+        if(analysisMenue.getTablename().contains("dltb")){list = arcgisMapper.getDltb(analysisMenue.getTablename());}
+
+
+        JSONObject jt = new JSONObject();
+        jt.put("result", list);
+
+        return jt.toJSONString();
+    }
+
+
 
 }

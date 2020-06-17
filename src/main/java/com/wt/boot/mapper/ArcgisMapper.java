@@ -29,8 +29,6 @@ public interface ArcgisMapper
 
 
 
-
-
     @Select("select * from ${table} ")
     public List<CCWJQ> getCCWJQ(@Param("table") String table);//拆除未尽区
 
@@ -76,30 +74,8 @@ public interface ArcgisMapper
     @Select("select * from ${table} ")
     public List<ZRBHQ> getZRBHQ(@Param("table") String table);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @Select("select * from ${table} ")
+    public List<DLTB> getDltb(@Param("table") String table);
 
 
 
