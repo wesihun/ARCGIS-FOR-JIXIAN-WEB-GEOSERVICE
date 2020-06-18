@@ -290,7 +290,6 @@ public class MyController {
 
         if(null==analysisMenue.getTablename() || analysisMenue.getTablename().equals("")){return null;}
 
-
         List list = null;
 
         if(analysisMenue.getTablename().contains("ccwjq")){list = arcgisMapper.getCCWJQ(analysisMenue.getTablename());}
@@ -311,14 +310,78 @@ public class MyController {
         if(analysisMenue.getTablename().contains("zrbhq")){list = arcgisMapper.getZRBHQ(analysisMenue.getTablename());}
         if(analysisMenue.getTablename().contains("dltb")){list = arcgisMapper.getDltb(analysisMenue.getTablename());}
 
-
         JSONObject jt = new JSONObject();
         jt.put("result", list);
-
 
         return jt.toJSONString();
     }
 
 
+
+    @RequestMapping(value = "getAnalysisTotalRecord", produces = "application/json;charset=utf-8")
+    public String getAnalysisTotalRecord(String jsonTree)//获取统计分析图层数据总条数
+    {
+        AnalysisMenue analysisMenue = JSON.parseObject(jsonTree, new TypeReference<AnalysisMenue>(){});
+
+        if(null==analysisMenue.getTablename() || analysisMenue.getTablename().equals("")){return null;}
+
+        float totalRecord = 0;
+
+        if(analysisMenue.getTablename().contains("ccwjq")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
+        if(analysisMenue.getTablename().contains("czcdyd")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
+        if(analysisMenue.getTablename().contains("cjdcqjx")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
+        if(analysisMenue.getTablename().contains("xzq")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
+        if(analysisMenue.getTablename().contains("gjgy")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
+        if(analysisMenue.getTablename().contains("kfyq")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
+        if(analysisMenue.getTablename().contains("lsyd")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
+        if(analysisMenue.getTablename().contains("lsyd")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
+        if(analysisMenue.getTablename().contains("pdt")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
+        if(analysisMenue.getTablename().contains("sdgy")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
+        if(analysisMenue.getTablename().contains("slgy")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
+        if(analysisMenue.getTablename().contains("stbhhx")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
+        if(analysisMenue.getTablename().contains("ttq")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
+        if(analysisMenue.getTablename().contains("xzqjx")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
+        if(analysisMenue.getTablename().contains("yjjbnttb")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
+        if(analysisMenue.getTablename().contains("zrbhq")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
+        if(analysisMenue.getTablename().contains("dltb")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
+
+        JSONObject jt = new JSONObject();
+        jt.put("result", totalRecord);
+
+        return jt.toJSONString();
+    }
+
+    @RequestMapping(value = "getAnalysisTotalArea", produces = "application/json;charset=utf-8")
+    public String getAnalysisTotalArea(String jsonTree)//获取统计分析图层数据总面积
+    {
+        AnalysisMenue analysisMenue = JSON.parseObject(jsonTree, new TypeReference<AnalysisMenue>(){});
+
+        if(null==analysisMenue.getTablename() || analysisMenue.getTablename().equals("")){return null;}
+
+        float totalArea = 0;
+        List list = null;
+
+        if(analysisMenue.getTablename().contains("ccwjq")) { list = arcgisMapper.getCCWJQ(analysisMenue.getTablename());for(int i=0; i<list.size(); i++) { CCWJQ ccwjq = (CCWJQ) list.get(i);totalArea += ccwjq.getArea(); } }
+        if(analysisMenue.getTablename().contains("czcdyd")) { list = arcgisMapper.getCZCDYD(analysisMenue.getTablename());for(int i=0; i<list.size(); i++) { CZCDYD czcdyd = (CZCDYD) list.get(i);totalArea += czcdyd.getArea(); } }
+        if(analysisMenue.getTablename().contains("cjdcqjx")) { list = arcgisMapper.getCJDCQJX(analysisMenue.getTablename());for(int i=0; i<list.size(); i++) { CJDCQJX cjdcqjx = (CJDCQJX) list.get(i);totalArea += cjdcqjx.getArea(); } }
+        if(analysisMenue.getTablename().contains("xzq")) { list = arcgisMapper.getXZQ(analysisMenue.getTablename());for(int i=0; i<list.size(); i++) { XZQ xzq = (XZQ) list.get(i);totalArea += xzq.getArea(); } }
+        if(analysisMenue.getTablename().contains("gjgy")) { list = arcgisMapper.getGJGY(analysisMenue.getTablename());for(int i=0; i<list.size(); i++) { GJGY gjgy = (GJGY) list.get(i);totalArea += gjgy.getArea(); } }
+        if(analysisMenue.getTablename().contains("kfyq")){list = arcgisMapper.getKFYQ(analysisMenue.getTablename());for(int i=0; i<list.size(); i++) { KFYQ kfyq = (KFYQ) list.get(i);totalArea += kfyq.getArea(); } }
+        if(analysisMenue.getTablename().contains("lsyd")){list = arcgisMapper.getLSYD(analysisMenue.getTablename());for(int i=0; i<list.size(); i++) { LSYD lsyd = (LSYD) list.get(i);totalArea += lsyd.getArea(); } }
+        if(analysisMenue.getTablename().contains("pdt")){list = arcgisMapper.getPDT(analysisMenue.getTablename());for(int i=0; i<list.size(); i++) { PDT pdt = (PDT) list.get(i);totalArea += pdt.getArea(); } }
+        if(analysisMenue.getTablename().contains("sdgy")){list = arcgisMapper.getSDGY(analysisMenue.getTablename());for(int i=0; i<list.size(); i++) { SDGY sdgy = (SDGY) list.get(i);totalArea += sdgy.getArea(); } }
+        if(analysisMenue.getTablename().contains("slgy")){list = arcgisMapper.getSLGY(analysisMenue.getTablename());for(int i=0; i<list.size(); i++) { SLGY slgy = (SLGY) list.get(i);totalArea += slgy.getArea(); } }
+        if(analysisMenue.getTablename().contains("stbhhx")){list = arcgisMapper.getSTBHHX(analysisMenue.getTablename());for(int i=0; i<list.size(); i++) { STBHHX stbhhx = (STBHHX) list.get(i);totalArea += stbhhx.getArea(); } }
+        if(analysisMenue.getTablename().contains("ttq")){list = arcgisMapper.getTTQ(analysisMenue.getTablename());for(int i=0; i<list.size(); i++) { TTQ ttq = (TTQ) list.get(i);totalArea += ttq.getArea(); } }
+        if(analysisMenue.getTablename().contains("xzqjx")){list = arcgisMapper.getXZQJX(analysisMenue.getTablename());for(int i=0; i<list.size(); i++) { XZQJX xzqjx = (XZQJX) list.get(i);totalArea += xzqjx.getArea(); } }
+        if(analysisMenue.getTablename().contains("yjjbnttb")){list = arcgisMapper.getYJJBNTTB(analysisMenue.getTablename());for(int i=0; i<list.size(); i++) { YJJBNTTB yjjbnttb = (YJJBNTTB) list.get(i);totalArea += yjjbnttb.getArea(); } }
+        if(analysisMenue.getTablename().contains("zrbhq")){list = arcgisMapper.getZRBHQ(analysisMenue.getTablename());for(int i=0; i<list.size(); i++) { ZRBHQ zrbhq = (ZRBHQ) list.get(i);totalArea += zrbhq.getArea(); } }
+        if(analysisMenue.getTablename().contains("dltb")){list = arcgisMapper.getDltb(analysisMenue.getTablename());for(int i=0; i<list.size(); i++) { DLTB dltb = (DLTB) list.get(i);totalArea += dltb.getArea(); } }
+
+        JSONObject jt = new JSONObject();
+        jt.put("result", totalArea);
+
+        return jt.toJSONString();
+    }
 
 }

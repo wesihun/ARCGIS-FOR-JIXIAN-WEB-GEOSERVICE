@@ -8,6 +8,29 @@ public class DLTB
     private String dlbm;
     private String qsdwdm;
     private String qsdwmc;
+    private float tbmj;
+    private float area;
+
+    public float getArea()
+    {
+        return area;
+    }
+
+    public void setArea(float area)
+    {
+        this.area = area;
+    }
+
+    public float getTbmj()
+    {
+        return tbmj;
+    }
+
+    public void setTbmj(float tbmj)
+    {
+        this.tbmj = tbmj;
+        this.setArea(tbmj);
+    }
 
     public int getObjectid()
     {

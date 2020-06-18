@@ -79,6 +79,10 @@ public interface ArcgisMapper
 
 
 
+    @Select("select count(*) from ${table} ${whereSQL}")//根据条件查询总记录数，没条件传""
+    public int getLayerTotalRecord(@Param("table") String table, @Param("whereSQL") String whereSQL);//拆除未尽区
+
+
 
 
 
