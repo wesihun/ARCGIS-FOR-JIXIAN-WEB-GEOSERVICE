@@ -263,7 +263,6 @@ public class MyController {
         if(specialMenue.getTablename().contains("gjgy")){list = arcgisMapper.getGJGY(specialMenue.getTablename());}
         if(specialMenue.getTablename().contains("kfyq")){list = arcgisMapper.getKFYQ(specialMenue.getTablename());}
         if(specialMenue.getTablename().contains("lsyd")){list = arcgisMapper.getLSYD(specialMenue.getTablename());}
-        if(specialMenue.getTablename().contains("lsyd")){list = arcgisMapper.getLSYD(specialMenue.getTablename());}
         if(specialMenue.getTablename().contains("pdt")){list = arcgisMapper.getPDT(specialMenue.getTablename());}
         if(specialMenue.getTablename().contains("sdgy")){list = arcgisMapper.getSDGY(specialMenue.getTablename());}
         if(specialMenue.getTablename().contains("slgy")){list = arcgisMapper.getSLGY(specialMenue.getTablename());}
@@ -284,31 +283,35 @@ public class MyController {
 
 
     @RequestMapping(value = "getAnalysisData", produces = "application/json;charset=utf-8")
-    public String getAnalysisData(String jsonTree)//获取统计分析图层数据
+    public String getAnalysisData(String jsonTree, String currentPage, String pageSize, String serchFileName, String serchFileValue)//获取统计分析图层数据，分页方案
     {
         AnalysisMenue analysisMenue = JSON.parseObject(jsonTree, new TypeReference<AnalysisMenue>(){});
 
         if(null==analysisMenue.getTablename() || analysisMenue.getTablename().equals("")){return null;}
 
+        String whereSQL = "";
+        String limitSQL = "";
         List list = null;
 
-        if(analysisMenue.getTablename().contains("ccwjq")){list = arcgisMapper.getCCWJQ(analysisMenue.getTablename());}
-        if(analysisMenue.getTablename().contains("czcdyd")){list = arcgisMapper.getCZCDYD(analysisMenue.getTablename());}
-        if(analysisMenue.getTablename().contains("cjdcqjx")){list = arcgisMapper.getCJDCQJX(analysisMenue.getTablename());}
-        if(analysisMenue.getTablename().contains("xzq")){list = arcgisMapper.getXZQ(analysisMenue.getTablename());}
-        if(analysisMenue.getTablename().contains("gjgy")){list = arcgisMapper.getGJGY(analysisMenue.getTablename());}
-        if(analysisMenue.getTablename().contains("kfyq")){list = arcgisMapper.getKFYQ(analysisMenue.getTablename());}
-        if(analysisMenue.getTablename().contains("lsyd")){list = arcgisMapper.getLSYD(analysisMenue.getTablename());}
-        if(analysisMenue.getTablename().contains("lsyd")){list = arcgisMapper.getLSYD(analysisMenue.getTablename());}
-        if(analysisMenue.getTablename().contains("pdt")){list = arcgisMapper.getPDT(analysisMenue.getTablename());}
-        if(analysisMenue.getTablename().contains("sdgy")){list = arcgisMapper.getSDGY(analysisMenue.getTablename());}
-        if(analysisMenue.getTablename().contains("slgy")){list = arcgisMapper.getSLGY(analysisMenue.getTablename());}
-        if(analysisMenue.getTablename().contains("stbhhx")){list = arcgisMapper.getSTBHHX(analysisMenue.getTablename());}
-        if(analysisMenue.getTablename().contains("ttq")){list = arcgisMapper.getTTQ(analysisMenue.getTablename());}
-        if(analysisMenue.getTablename().contains("xzqjx")){list = arcgisMapper.getXZQJX(analysisMenue.getTablename());}
-        if(analysisMenue.getTablename().contains("yjjbnttb")){list = arcgisMapper.getYJJBNTTB(analysisMenue.getTablename());}
-        if(analysisMenue.getTablename().contains("zrbhq")){list = arcgisMapper.getZRBHQ(analysisMenue.getTablename());}
-        if(analysisMenue.getTablename().contains("dltb")){list = arcgisMapper.getDltb(analysisMenue.getTablename());}
+        if((null!=currentPage && !"".equals(currentPage)) && (null!=pageSize && !"".equals(pageSize))){limitSQL = constructLimitSQL(Integer.parseInt(currentPage), Integer.parseInt(pageSize));}
+        whereSQL = this.constructWhereSQL(serchFileName, serchFileValue);//构造whereSQL
+
+        if(analysisMenue.getTablename().contains("ccwjq")){list = arcgisMapper.getCCWJQ_1(analysisMenue.getTablename(),whereSQL,limitSQL);}
+        if(analysisMenue.getTablename().contains("czcdyd")){list = arcgisMapper.getCZCDYD_1(analysisMenue.getTablename(),whereSQL,limitSQL);}
+        if(analysisMenue.getTablename().contains("cjdcqjx")){list = arcgisMapper.getCJDCQJX_1(analysisMenue.getTablename(),whereSQL,limitSQL);}
+        if(analysisMenue.getTablename().contains("xzq")){list = arcgisMapper.getXZQ_1(analysisMenue.getTablename(),whereSQL,limitSQL);}
+        if(analysisMenue.getTablename().contains("gjgy")){list = arcgisMapper.getGJGY_1(analysisMenue.getTablename(),whereSQL,limitSQL);}
+        if(analysisMenue.getTablename().contains("kfyq")){list = arcgisMapper.getKFYQ_1(analysisMenue.getTablename(),whereSQL,limitSQL);}
+        if(analysisMenue.getTablename().contains("lsyd")){list = arcgisMapper.getLSYD_1(analysisMenue.getTablename(),whereSQL,limitSQL);}
+        if(analysisMenue.getTablename().contains("pdt")){list = arcgisMapper.getPDT_1(analysisMenue.getTablename(),whereSQL,limitSQL);}
+        if(analysisMenue.getTablename().contains("sdgy")){list = arcgisMapper.getSDGY_1(analysisMenue.getTablename(),whereSQL,limitSQL);}
+        if(analysisMenue.getTablename().contains("slgy")){list = arcgisMapper.getSLGY_1(analysisMenue.getTablename(),whereSQL,limitSQL);}
+        if(analysisMenue.getTablename().contains("stbhhx")){list = arcgisMapper.getSTBHHX_1(analysisMenue.getTablename(),whereSQL,limitSQL);}
+        if(analysisMenue.getTablename().contains("ttq")){list = arcgisMapper.getTTQ_1(analysisMenue.getTablename(),whereSQL,limitSQL);}
+        if(analysisMenue.getTablename().contains("xzqjx")){list = arcgisMapper.getXZQJX_1(analysisMenue.getTablename(),whereSQL,limitSQL);}
+        if(analysisMenue.getTablename().contains("yjjbnttb")){list = arcgisMapper.getYJJBNTTB_1(analysisMenue.getTablename(),whereSQL,limitSQL);}
+        if(analysisMenue.getTablename().contains("zrbhq")){list = arcgisMapper.getZRBHQ_1(analysisMenue.getTablename(),whereSQL,limitSQL);}
+        if(analysisMenue.getTablename().contains("dltb")){list = arcgisMapper.getDltb_1(analysisMenue.getTablename(),whereSQL,limitSQL);}
 
         JSONObject jt = new JSONObject();
         jt.put("result", list);
@@ -319,36 +322,67 @@ public class MyController {
 
 
     @RequestMapping(value = "getAnalysisTotalRecord", produces = "application/json;charset=utf-8")
-    public String getAnalysisTotalRecord(String jsonTree)//获取统计分析图层数据总条数
+    public String getAnalysisTotalRecord(String jsonTree, String serchFileName, String serchFileValue)//获取统计分析图层数据总条数
     {
         AnalysisMenue analysisMenue = JSON.parseObject(jsonTree, new TypeReference<AnalysisMenue>(){});
 
         if(null==analysisMenue.getTablename() || analysisMenue.getTablename().equals("")){return null;}
 
+        String whereSQL = "";
         float totalRecord = 0;
 
-        if(analysisMenue.getTablename().contains("ccwjq")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
-        if(analysisMenue.getTablename().contains("czcdyd")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
-        if(analysisMenue.getTablename().contains("cjdcqjx")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
-        if(analysisMenue.getTablename().contains("xzq")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
-        if(analysisMenue.getTablename().contains("gjgy")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
-        if(analysisMenue.getTablename().contains("kfyq")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
-        if(analysisMenue.getTablename().contains("lsyd")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
-        if(analysisMenue.getTablename().contains("lsyd")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
-        if(analysisMenue.getTablename().contains("pdt")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
-        if(analysisMenue.getTablename().contains("sdgy")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
-        if(analysisMenue.getTablename().contains("slgy")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
-        if(analysisMenue.getTablename().contains("stbhhx")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
-        if(analysisMenue.getTablename().contains("ttq")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
-        if(analysisMenue.getTablename().contains("xzqjx")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
-        if(analysisMenue.getTablename().contains("yjjbnttb")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
-        if(analysisMenue.getTablename().contains("zrbhq")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
-        if(analysisMenue.getTablename().contains("dltb")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), "");}
+        whereSQL = this.constructWhereSQL(serchFileName, serchFileValue);//构造whereSQL
+
+
+        if(analysisMenue.getTablename().contains("ccwjq")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), whereSQL);}
+        if(analysisMenue.getTablename().contains("czcdyd")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), whereSQL);}
+        if(analysisMenue.getTablename().contains("cjdcqjx")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), whereSQL);}
+        if(analysisMenue.getTablename().contains("xzq")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), whereSQL);}
+        if(analysisMenue.getTablename().contains("gjgy")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), whereSQL);}
+        if(analysisMenue.getTablename().contains("kfyq")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), whereSQL);}
+        if(analysisMenue.getTablename().contains("lsyd")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), whereSQL);}
+        if(analysisMenue.getTablename().contains("pdt")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), whereSQL);}
+        if(analysisMenue.getTablename().contains("sdgy")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), whereSQL);}
+        if(analysisMenue.getTablename().contains("slgy")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), whereSQL);}
+        if(analysisMenue.getTablename().contains("stbhhx")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), whereSQL);}
+        if(analysisMenue.getTablename().contains("ttq")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), whereSQL);}
+        if(analysisMenue.getTablename().contains("xzqjx")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), whereSQL);}
+        if(analysisMenue.getTablename().contains("yjjbnttb")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), whereSQL);}
+        if(analysisMenue.getTablename().contains("zrbhq")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), whereSQL);}
+        if(analysisMenue.getTablename().contains("dltb")){totalRecord = arcgisMapper.getLayerTotalRecord(analysisMenue.getTablename(), whereSQL);}
 
         JSONObject jt = new JSONObject();
         jt.put("result", totalRecord);
 
         return jt.toJSONString();
+    }
+
+    public String constructWhereSQL(String serchFileName, String serchFileValue)//构造whereSQL语句
+    {
+        String whereSQL = "";
+
+        if((null!=serchFileName && !serchFileName.equals("")) && (null!=serchFileValue && !serchFileValue.equals("")))//有限制条件
+        {
+            if(serchFileName.equals("标识码"))
+            {
+                whereSQL +="where bsm like '%" + serchFileValue + "%'";
+            }
+            if(serchFileName.equals("要素代码"))
+            {
+                whereSQL +="where ysdm like '%" + serchFileValue + "%'";
+            }
+        }
+
+        return whereSQL;
+    }
+
+    public String constructLimitSQL(int currentPage, int pageSize)//构造whereSQL语句
+    {
+        String limitSQL = "";
+
+        limitSQL += "limit " + pageSize  + " OFFSET " + (currentPage-1)*pageSize;
+
+        return limitSQL;
     }
 
     @RequestMapping(value = "getAnalysisTotalArea", produces = "application/json;charset=utf-8")
@@ -383,5 +417,10 @@ public class MyController {
 
         return jt.toJSONString();
     }
+
+
+
+
+
 
 }

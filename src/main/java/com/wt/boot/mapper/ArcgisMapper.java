@@ -29,58 +29,120 @@ public interface ArcgisMapper
 
 
 
-    @Select("select * from ${table} ")
+    @Select("select * from ${table}  ")
     public List<CCWJQ> getCCWJQ(@Param("table") String table);//拆除未尽区
 
     @Select("select * from ${table} ")
     public List<CZCDYD> getCZCDYD(@Param("table") String table);
 
-    @Select("select * from ${table} ")
+    @Select("select * from ${table}  ")
     public List<CJDCQJX> getCJDCQJX(@Param("table") String table);
 
-    @Select("select * from ${table} ")
+    @Select("select * from ${table}  ")
     public List<XZQ> getXZQ(@Param("table") String table);
 
-    @Select("select * from ${table} ")
+    @Select("select * from ${table}  ")
     public List<GJGY> getGJGY(@Param("table") String table);
 
-    @Select("select * from ${table} ")
+    @Select("select * from ${table}  ")
     public List<KFYQ> getKFYQ(@Param("table") String table);
 
-    @Select("select * from ${table} ")
+    @Select("select * from ${table}  ")
     public List<LSYD> getLSYD(@Param("table") String table);
 
     @Select("select * from ${table} limit 1000 OFFSET 0")
     public List<PDT> getPDT(@Param("table") String table);
 
-    @Select("select * from ${table} ")
+    @Select("select * from ${table}  ")
     public List<SDGY> getSDGY(@Param("table") String table);
 
     @Select("select * from ${table} ")
     public List<SLGY> getSLGY(@Param("table") String table);
 
-    @Select("select * from ${table} ")
+    @Select("select * from ${table}  ")
     public List<STBHHX> getSTBHHX(@Param("table") String table);
 
-    @Select("select * from ${table} ")
+    @Select("select * from ${table}  ")
     public List<TTQ> getTTQ(@Param("table") String table);
 
-    @Select("select * from ${table} ")
-    public List<XZQJX> getXZQJX(@Param("table") String table);
+    @Select("select * from ${table}  ")
+    public List<XZQJX> getXZQJX(@Param("table") String tableL);
 
-    @Select("select * from ${table} ")
+    @Select("select * from ${table}  ")
     public List<YJJBNTTB> getYJJBNTTB(@Param("table") String table);
 
     @Select("select * from ${table} ")
     public List<ZRBHQ> getZRBHQ(@Param("table") String table);
 
-    @Select("select * from ${table} ")
+    @Select("select * from ${table}  ")
     public List<DLTB> getDltb(@Param("table") String table);
 
 
 
     @Select("select count(*) from ${table} ${whereSQL}")//根据条件查询总记录数，没条件传""
     public int getLayerTotalRecord(@Param("table") String table, @Param("whereSQL") String whereSQL);//拆除未尽区
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //----------------------------------分页方案--------------------------------------
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<CCWJQ> getCCWJQ_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);//拆除未尽区
+
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<CZCDYD> getCZCDYD_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<CJDCQJX> getCJDCQJX_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<XZQ> getXZQ_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<GJGY> getGJGY_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<KFYQ> getKFYQ_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<LSYD> getLSYD_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<PDT> getPDT_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<SDGY> getSDGY_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<SLGY> getSLGY_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<STBHHX> getSTBHHX_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<TTQ> getTTQ_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<XZQJX> getXZQJX_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<YJJBNTTB> getYJJBNTTB_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
+    @Select("select * from ${table} ${whereSQL} ${limitSQL} ")
+    public List<ZRBHQ> getZRBHQ_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
+    @Select("select * from ${table} ${whereSQL}  ${limitSQL} ")
+    public List<DLTB> getDltb_1(@Param("table") String table, @Param("whereSQL") String whereSQL, @Param("limitSQL") String limitSQL);
+
 
 
 

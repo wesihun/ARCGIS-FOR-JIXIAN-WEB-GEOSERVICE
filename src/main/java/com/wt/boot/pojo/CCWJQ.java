@@ -74,12 +74,14 @@ public class CCWJQ
 
     public String getBz()
     {
+        if(null==this.bz){this.bz="";}
         return bz;
     }
 
     public void setBz(String bz)
     {
         this.bz = bz;
+
     }
 
     public String getShape()
